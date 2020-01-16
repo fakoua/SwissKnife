@@ -7,6 +7,7 @@ import { WinActions } from './src/models/winActions.ts'
 /**
  * Speak a text using default configuration.
  * @param text input string to speak
+ * @param options set the rate and volume
  * Return the process exit code
  */
 export const speak = async function (text: string, options: SpeakOptions = { rate: 0, volume: 50 }): Promise<number> {
@@ -27,6 +28,7 @@ export const speak = async function (text: string, options: SpeakOptions = { rat
 /**
  * Set the computer sound volume
  * @param volume from 0 (mute) to 100 (highest)
+ * Return the process exit code
  */
 export const setVolume = async function (volume: number): Promise<number> {
     const v = Math.floor(655.35 * volume)
@@ -37,14 +39,29 @@ export const setVolume = async function (volume: number): Promise<number> {
     return (await runNirCmd(args))
 }
 
+/**
+ * Mute the system sound
+ * Return the process exit code
+ */
 export const mute = async function (): Promise<number> {
     return await toggleMute(1)
 }
 
+/**
+ * Unmute the system sound
+ * Return the process exit code
+ */
 export const unmute = async function (): Promise<number> {
     return await toggleMute(0)
 }
 
+/**
+ * Capture screenshot
+ * @param imageName local path to save the PNG image
+ * @param monitor Monitor options, Single, Dual, or Current Window
+ * @param screen Screen option, x, y, width and height
+ * Return the saved image path
+ */
 export const screenshot = async function (imageName: string, monitor: Monitor = "Single", screen?: Screen): Promise<string> {
 
     let cmd = "savescreenshot"
@@ -78,6 +95,12 @@ export const screenshot = async function (imageName: string, monitor: Monitor = 
     }
 }
 
+/**
+ * Question Box dialog
+ * @param title Question Box Title
+ * @param text Question Box question text
+ * Return true if the user clicks YES
+ */
 export const questionBox = async function (title: string, text: string): Promise<boolean> {
     let args = [
         "qboxcom",
@@ -90,6 +113,12 @@ export const questionBox = async function (title: string, text: string): Promise
     return exitCode === 48
 }
 
+/**
+ * InfoBox dialog
+ * @param title InfoBox title
+ * @param text InfoBox message
+ * Return the process exit code
+ */
 export const infoBox = async function (title: string, text: string): Promise<number> {
     let args = [
         "infobox",
@@ -100,7 +129,12 @@ export const infoBox = async function (title: string, text: string): Promise<num
     return exitCode
 }
 
-
+/**
+ * Play system beep
+ * @param frequency Beep frequency
+ * @param duration Beep duration in milliseconds
+ * Return the process exit code
+ */
 export const beep = async function (frequency: number, duration: number): Promise<number> {
     let args = [
         "beep",
@@ -111,6 +145,10 @@ export const beep = async function (frequency: number, duration: number): Promis
     return exitCode
 }
 
+/**
+ * Play Windows system notification sound
+ * Return the process exit code
+ */
 export const winBeep = async function (): Promise<number> {
     let args = [
         "stdbeep"
@@ -119,6 +157,14 @@ export const winBeep = async function (): Promise<number> {
     return exitCode
 }
 
+/**
+ * Show window notification (Ballon)
+ * @param title Notification Title
+ * @param text Notification Text
+ * @param icon Icon number (from shell32.dll)
+ * @param timeout Timeout in milliseconds to hide the notification
+ * Return the process exit code
+ */
 export const notification = async function (title: string, text: string, icon: number, timeout: number): Promise<number> {
     let args = [
         "trayballoon",
@@ -131,6 +177,13 @@ export const notification = async function (title: string, text: string, icon: n
     return exitCode
 }
 
+/**
+ * 
+ * @param winTitle Window title to control (example: notepad, calc ...)
+ * @param find Find method for window title (Equals, Contains, StartsWith, EndsWith)
+ * @param action Close, Hide, Flash, Max, Min ...
+ * Return the process exit code
+ */
 export const winAction = async function (winTitle: string, find: FindMode, action: WinActions): Promise<number> {
     let findStr = ''
     switch (find) {
