@@ -1,4 +1,6 @@
 import { join }  from "https://deno.land/std/path/mod.ts";
+import * as fs from "https://deno.land/std/fs/mod.ts";
+import { createBin } from "./tsToNirCmd.ts"
 
 /**
  * split input string into multiple lines
@@ -41,8 +43,18 @@ export function getDenoDir(): string {
     return join(homeDir, relativeDir)
 }
 
-export function getNir(): string {
-    return "C:\\de\\NIR\\bin\\nircmd.exe"
+export async function getNir(): Promise<string> {
+
+    let swissKnifeFolder = join(getDenoDir(), "bin/swissknife/")
+    let nirPath = join(swissKnifeFolder, "nircmd.exe")
+    let exists = await fs.exists(nirPath)
+    if (exists) {
+        return nirPath;
+    }
+    //Ensure directory
+    await fs.ensureDir(swissKnifeFolder)
+    await createBin(nirPath)
+    return nirPath;
 }
 
 enum OS {

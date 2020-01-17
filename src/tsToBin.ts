@@ -11,7 +11,7 @@ let binFile = argv.bin
 let binFolderPath = join(Deno.cwd(), `bin`)
 let binFilePath = join(binFolderPath, `temp_${binFile}.exe`)
 
-let tsPath = `../bin/${binFile}.ts`
+//let tsPath = `../bin/${binFile}.ts`
 //const tsContent = await import(tsPath)
 
 const binContent = atob(bin)

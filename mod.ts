@@ -7,7 +7,7 @@ import { WinActions } from './src/models/winActions.ts'
 /**
  * Speak a text using default configuration.
  * @param text input string to speak
- * @param options set the rate and volume
+ * @param options - { rate: 0, volume: 50 } set the rate and volume
  * Return the process exit code
  */
 export const speak = async function (text: string, options: SpeakOptions = { rate: 0, volume: 50 }): Promise<number> {
@@ -57,12 +57,12 @@ export const unmute = async function (): Promise<number> {
 
 /**
  * Capture screenshot
- * @param imageName local path to save the PNG image
- * @param monitor Monitor options, Single, Dual, or Current Window
- * @param screen Screen option, x, y, width and height
+ * @param imagePath - String: local path to save the PNG image
+ * @param monitor - String: Monitor options, "Single", "Dual", or "Window"
+ * @param screen - {x, y, width, height} Screen option
  * Return the saved image path
  */
-export const screenshot = async function (imageName: string, monitor: Monitor = "Single", screen?: Screen): Promise<string> {
+export const screenshot = async function (imagePath: string, monitor: Monitor = "Single", screen?: Screen): Promise<string> {
 
     let cmd = "savescreenshot"
     switch (monitor) {
@@ -77,7 +77,7 @@ export const screenshot = async function (imageName: string, monitor: Monitor = 
 
     let args = [
         cmd,
-        imageName
+        imagePath
     ]
 
     if (screen) {
@@ -89,7 +89,7 @@ export const screenshot = async function (imageName: string, monitor: Monitor = 
 
     let exitCode = await runNirCmd(args);
     if (exitCode === 0) {
-        return imageName;
+        return imagePath;
     } else {
         return `Error: exit code ${exitCode}`
     }
@@ -165,7 +165,7 @@ export const winBeep = async function (): Promise<number> {
  * @param timeout Timeout in milliseconds to hide the notification
  * Return the process exit code
  */
-export const notification = async function (title: string, text: string, icon: number, timeout: number): Promise<number> {
+export const notification = async function (title: string, text: string, icon: number=77, timeout: number=5000): Promise<number> {
     let args = [
         "trayballoon",
         title,
@@ -213,7 +213,8 @@ export const winAction = async function (winTitle: string, find: FindMode, actio
 
 
 async function runNirCmd(args: Array<string>): Promise<number> {
-    args.unshift(utils.getNir());
+    let nirCmd = await utils.getNir();
+    args.unshift(nirCmd);
     const p = Deno.run({
         args: args,
         stdout: "piped",
