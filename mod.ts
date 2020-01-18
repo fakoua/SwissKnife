@@ -214,7 +214,7 @@ export const winAction = async function (winTitle: string, find: Find, action: W
 async function runNirCmd(args: Array<string>): Promise<number> {
     let OS = utils.getOS();
 
-    if (OS !== utils.OS.linux) {
+    if (OS !== utils.OS.win) {
         console.error("\r\n  --> Sorry, Currently SwissKnife supports Windows OS Only :(\r\n")
         return -1;
     }
