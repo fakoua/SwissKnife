@@ -49,7 +49,7 @@ await swissKnife.unmute()
 
 ### Play beeps
 
-await swissKnife.beep(freq, duration)
+`await swissKnife.beep(freq, duration)`
 
 The freq (Frequance) parameter specifies the freq in hertz, the duration parameter specifies the duration of the sound in milliseconds.
 
@@ -105,7 +105,8 @@ let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Single", {
 Display a notification with text, icon and duration:
 
 `swissKnife.notification(title, text, iconNumber, duration)`
-MB: Icon number is the icon id in shell32.dll
+
+NB: Icon number is the icon id in shell32.dll
 
 ```ts
 await swissKnife.notification("My Title", "Hello Notification", 77, 2000)
@@ -135,9 +136,11 @@ if (res) {
 This method allows you to hide, show, minimize, maximize, flush ... windows forms.
 
 `winAction(winTitle: string, find: Find, action: WinActions)`
-winTitle: Window Title to send the command
-find: Find method (Contains, StartsWith, EndsWith and Equals)
-action: Close, Hide, Show, Active, Flax, Max, Min, Normal and Center.
+
+- winTitle: Window Title to send the command
+- find: Find method (Contains, StartsWith, EndsWith and Equals)
+- action: Close, Hide, Show, Active, Flax, Max, Min, Normal and Center.
+
 ```ts
 //flash any window with title containing 'untit'
 await swissKnife.winAction("Untit", "Contains", "Flash")
