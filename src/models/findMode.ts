@@ -1,6 +1,1 @@
-export enum FindMode {
-    Equal,
-    Contains,
-    StartsWith,
-    EndsWith
-}
+export type Find = "Equals" | "Contains" | "StartsWith" | "EndsWith"

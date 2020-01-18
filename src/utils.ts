@@ -57,9 +57,9 @@ export async function getNir(): Promise<string> {
     return nirPath;
 }
 
-enum OS {
+export enum OS {
     win, linux, mac
 }
-function getOS(): OS {
+export function getOS(): OS {
     return OS[Deno.build.os];
 }

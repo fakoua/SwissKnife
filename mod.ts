@@ -1,7 +1,7 @@
 import * as utils from './src/utils.ts'
 import { Screen, Monitor } from './src/models/screen.ts'
 import { SpeakOptions } from './src/models/speakOptions.ts'
-import { FindMode } from './src/models/findMode.ts'
+import { Find } from './src/models/findMode.ts'
 import { WinActions } from './src/models/winActions.ts'
 
 /**
@@ -165,7 +165,7 @@ export const winBeep = async function (): Promise<number> {
  * @param timeout Timeout in milliseconds to hide the notification
  * Return the process exit code
  */
-export const notification = async function (title: string, text: string, icon: number=77, timeout: number=5000): Promise<number> {
+export const notification = async function (title: string, text: string, icon: number = 77, timeout: number = 5000): Promise<number> {
     let args = [
         "trayballoon",
         title,
@@ -180,21 +180,21 @@ export const notification = async function (title: string, text: string, icon: n
 /**
  * 
  * @param winTitle Window title to control (example: notepad, calc ...)
- * @param find Find method for window title (Equals, Contains, StartsWith, EndsWith)
+ * @param find Find mode for window title (Equals, Contains, StartsWith, EndsWith)
  * @param action Close, Hide, Flash, Max, Min ...
  * Return the process exit code
  */
-export const winAction = async function (winTitle: string, find: FindMode, action: WinActions): Promise<number> {
+export const winAction = async function (winTitle: string, find: Find, action: WinActions): Promise<number> {
     let findStr = ''
     switch (find) {
-        case FindMode.Contains:
+        case "Contains":
             findStr = 'ititle'
             break;
 
-        case FindMode.EndsWith:
+        case "EndsWith":
             findStr = 'etitle'
             break;
-        case FindMode.StartsWith:
+        case "StartsWith":
             findStr = 'stitle'
             break;
         default:
@@ -211,8 +211,13 @@ export const winAction = async function (winTitle: string, find: FindMode, actio
     return exitCode
 }
 
-
 async function runNirCmd(args: Array<string>): Promise<number> {
+    let OS = utils.getOS();
+
+    if (OS !== utils.OS.linux) {
+        console.error("\r\n  --> Sorry, Currently SwissKnife supports Windows OS Only :(\r\n")
+        return -1;
+    }
     let nirCmd = await utils.getNir();
     args.unshift(nirCmd);
     const p = Deno.run({
@@ -231,6 +236,3 @@ async function toggleMute(mute: number): Promise<number> {
     ]
     return (await runNirCmd(args))
 }
-
-
-
