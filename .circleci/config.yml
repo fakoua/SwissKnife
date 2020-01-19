@@ -10,5 +10,6 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
+      - run: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
       - run: iwr https://deno.land/x/install/install.ps1 -useb | iex
       - run: deno -A test_win.ts
