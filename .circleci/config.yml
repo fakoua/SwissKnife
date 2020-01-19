@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     executor:
-      name: deno
+      name: deno latest
       shell: powershell.exe
     steps:
       - checkout
