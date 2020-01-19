@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     executor:
-      name: deno latest
+      name: win/vs2019
       shell: powershell.exe
     steps:
       - checkout
