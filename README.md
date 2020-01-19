@@ -13,7 +13,7 @@ SwissKnife is a Deno module that allows you to do some useful tasks on Windows O
 Speaks the text your specify by using the Speech library (SAPI) that comes with Windows.
 
 ```ts
-import * as swissKnife from "./mod.ts"
+import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
 let res = await swissKnife.speak("Hello from the other world")
 ```
 
@@ -26,7 +26,7 @@ deno -A myfile.ts #Requires allow-run and allow-write permissions
 You can also set the rate and the volume:
 
 ```ts
-import * as swissKnife from "./mod.ts"
+import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
 let res = await swissKnife.speak("Hello from the other world", {rate: 3, volume: 80})
 //rate: -10 -> 10
 //volume: 0% -> 100%
@@ -35,7 +35,7 @@ let res = await swissKnife.speak("Hello from the other world", {rate: 3, volume:
 ### Computer System volume
 
 ```ts
-import * as swissKnife from "./mod.ts"
+import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
 
 //Set the volume
 await swissKnife.setVolume(90) //value between 0 to 100
