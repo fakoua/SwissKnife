@@ -67,8 +67,7 @@ export async function getNir(): Promise<string> {
 
 
 export function getOS(): OS {
-     let rtnVal = OS[Deno.build.os];
-     return rtnVal;
+     return OS[Deno.build.os];
 }
 
 export enum OS {
