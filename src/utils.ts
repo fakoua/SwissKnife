@@ -1,5 +1,6 @@
 import { join }  from "https://deno.land/std/path/mod.ts";
-import * as fs from "https://deno.land/std/fs/mod.ts";
+import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts";
+import { exists } from "https://deno.land/std/fs/exists.ts";
 import { createBin } from "./tsToNirCmd.ts"
 
 /**
@@ -24,42 +25,54 @@ export function trunString(input: string, width: number): string {
  */
 export function getDenoDir(): string {
     let os = getOS();
-    let homeKey: string = os == OS.win ? 'USERPROFILE' : 'HOME'
-    let homeDir = Deno.env(homeKey)
+    let homeKey: string = os == OS.windows ? 'USERPROFILE' : 'HOME'
+    let homeDir = Deno.env.get(homeKey)
     let relativeDir = "";
 
     switch (os) {
-        case OS.win:
+        case OS.windows:
             relativeDir = "AppData/Local/deno"
             break;
         case OS.linux:
             relativeDir = ".cache/deno"
             break;
-        case OS.mac:
+        case OS.darwin:
             relativeDir = "Library/Caches/deno"
             break;
     }
 
-    return join(homeDir, relativeDir)
+    if (homeDir === undefined) {
+        return "";
+    }
+    else 
+    {
+        return join(homeDir, relativeDir)
+    }
+    
 }
 
 export async function getNir(): Promise<string> {
 
     let swissKnifeFolder = join(getDenoDir(), "bin/swissknife/")
     let nirPath = join(swissKnifeFolder, "nircmd.exe")
-    let exists = await fs.exists(nirPath)
-    if (exists) {
+    let ex = await exists(nirPath)
+    if (ex) {
         return nirPath;
     }
     //Ensure directory
-    await fs.ensureDir(swissKnifeFolder)
+    await ensureDir(swissKnifeFolder)
     await createBin(nirPath)
     return nirPath;
 }
 
-export enum OS {
-    win, linux, mac
-}
+
 export function getOS(): OS {
-    return OS[Deno.build.os];
+     let rtnVal = OS[Deno.build.os];
+     return rtnVal;
+}
+
+export enum OS {
+    windows = "windows",
+    linux = "linux",
+    darwin = "darwin",
 }

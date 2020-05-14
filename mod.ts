@@ -214,14 +214,14 @@ export const winAction = async function (winTitle: string, find: Find, action: W
 async function runNirCmd(args: Array<string>): Promise<number> {
     let OS = utils.getOS();
 
-    if (OS !== utils.OS.win) {
+    if (OS !== utils.OS.windows) {
         console.error("\r\n  --> Sorry, Currently SwissKnife supports Windows OS Only :(\r\n")
         return -1;
     }
     let nirCmd = await utils.getNir();
     args.unshift(nirCmd);
     const p = Deno.run({
-        args: args,
+        cmd: args,
         stdout: "piped",
         stderr: "piped"
     });
