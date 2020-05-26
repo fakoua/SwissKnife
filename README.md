@@ -1,4 +1,6 @@
 # SwissKnife
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2FSwissKnife.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2FSwissKnife?ref=badge_shield)
+
 
 Deno Swiss Knife tools (Windows Only)
 
@@ -149,3 +151,6 @@ await swissKnife.winAction("Untit", "Contains", "Flash")
 ## License
 
 [MIT](LICENSE)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2FSwissKnife.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2FSwissKnife?ref=badge_large)
