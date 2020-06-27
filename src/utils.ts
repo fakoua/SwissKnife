@@ -1,4 +1,4 @@
-import { join }  from "https://deno.land/std/path/mod.ts";
+import { join } from "https://deno.land/std/path/mod.ts";
 import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts";
 import { exists } from "https://deno.land/std/fs/exists.ts";
 import { createBin } from "./tsToNirCmd.ts"
@@ -9,10 +9,10 @@ import { createBin } from "./tsToNirCmd.ts"
  * @param width the width of the line
  */
 export function trunString(input: string, width: number): string {
-    let it = Math.ceil(input.length / width);
-    let rtnVal = ''
+    const it = Math.ceil(input.length / width);
+    let rtnVal = ""
     for (let index = 0; index < it; index++) {
-        rtnVal += input.substring(index*width, index*width + width) + '\r\n'
+        rtnVal += input.substring(index * width, index * width + width) + "\r\n"
     }
     return rtnVal
 }
@@ -24,9 +24,9 @@ export function trunString(input: string, width: number): string {
  * - (/home/USERNAME/.cache/deno) on linux
  */
 export function getDenoDir(): string {
-    let os = getOS();
-    let homeKey: string = os == OS.windows ? 'USERPROFILE' : 'HOME'
-    let homeDir = Deno.env.get(homeKey)
+    const os = getOS();
+    const homeKey: string = os === OS.windows ? "USERPROFILE" : "HOME"
+    const homeDir = Deno.env.get(homeKey)
     let relativeDir = "";
 
     switch (os) {
@@ -43,9 +43,7 @@ export function getDenoDir(): string {
 
     if (homeDir === undefined) {
         return "";
-    }
-    else 
-    {
+    } else {
         return join(homeDir, relativeDir)
     }
     
@@ -53,13 +51,13 @@ export function getDenoDir(): string {
 
 export async function getNir(): Promise<string> {
 
-    let swissKnifeFolder = join(getDenoDir(), "bin/swissknife/")
-    let nirPath = join(swissKnifeFolder, "nircmd.exe")
-    let ex = await exists(nirPath)
+    const swissKnifeFolder = join(getDenoDir(), "bin/swissknife/")
+    const nirPath = join(swissKnifeFolder, "nircmd.exe")
+    const ex = await exists(nirPath)
     if (ex) {
         return nirPath;
     }
-    //Ensure directory
+    // Ensure directory
     await ensureDir(swissKnifeFolder)
     await createBin(nirPath)
     return nirPath;

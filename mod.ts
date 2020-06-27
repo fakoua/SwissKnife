@@ -1,8 +1,8 @@
-import * as utils from './src/utils.ts'
-import { Screen, Monitor } from './src/models/screen.ts'
-import { SpeakOptions } from './src/models/speakOptions.ts'
-import { Find } from './src/models/findMode.ts'
-import { WinActions } from './src/models/winActions.ts'
+import * as utils from "./src/utils.ts"
+import { Screen, Monitor } from "./src/models/screen.ts"
+import { SpeakOptions } from "./src/models/speakOptions.ts"
+import { Find } from "./src/models/findMode.ts"
+import { WinActions } from "./src/models/winActions.ts"
 
 /**
  * Speak a text using default configuration.
@@ -11,7 +11,7 @@ import { WinActions } from './src/models/winActions.ts'
  * Return the process exit code
  */
 export const speak = async function (text: string, options: SpeakOptions = { rate: 0, volume: 50 }): Promise<number> {
-    let args = [
+    const args = [
         "speak",
         "text",
         text
@@ -32,7 +32,7 @@ export const speak = async function (text: string, options: SpeakOptions = { rat
  */
 export const setVolume = async function (volume: number): Promise<number> {
     const v = Math.floor(655.35 * volume)
-    let args = [
+    const args = [
         "setsysvolume",
         v.toString()
     ];
@@ -75,7 +75,7 @@ export const screenshot = async function (imagePath: string, monitor: Monitor = 
             break;
     }
 
-    let args = [
+    const args = [
         cmd,
         imagePath
     ]
@@ -87,7 +87,7 @@ export const screenshot = async function (imagePath: string, monitor: Monitor = 
         args.push(screen.height.toString())
     }
 
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     if (exitCode === 0) {
         return imagePath;
     } else {
@@ -102,14 +102,14 @@ export const screenshot = async function (imagePath: string, monitor: Monitor = 
  * Return true if the user clicks YES
  */
 export const questionBox = async function (title: string, text: string): Promise<boolean> {
-    let args = [
+    const args = [
         "qboxcom",
         text,
         title,
         "returnval",
         "0x30"
     ]
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     return exitCode === 48
 }
 
@@ -120,12 +120,12 @@ export const questionBox = async function (title: string, text: string): Promise
  * Return the process exit code
  */
 export const infoBox = async function (title: string, text: string): Promise<number> {
-    let args = [
+    const args = [
         "infobox",
         text,
         title
     ]
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     return exitCode
 }
 
@@ -136,12 +136,12 @@ export const infoBox = async function (title: string, text: string): Promise<num
  * Return the process exit code
  */
 export const beep = async function (frequency: number, duration: number): Promise<number> {
-    let args = [
+    const args = [
         "beep",
         frequency.toString(),
         duration.toString(),
     ]
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     return exitCode
 }
 
@@ -150,10 +150,10 @@ export const beep = async function (frequency: number, duration: number): Promis
  * Return the process exit code
  */
 export const winBeep = async function (): Promise<number> {
-    let args = [
+    const args = [
         "stdbeep"
     ]
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     return exitCode
 }
 
@@ -166,14 +166,14 @@ export const winBeep = async function (): Promise<number> {
  * Return the process exit code
  */
 export const notification = async function (title: string, text: string, icon: number = 77, timeout: number = 5000): Promise<number> {
-    let args = [
+    const args = [
         "trayballoon",
         title,
         text,
         `shell32.dll,${icon}`,
         timeout.toString()
     ]
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     return exitCode
 }
 
@@ -185,40 +185,40 @@ export const notification = async function (title: string, text: string, icon: n
  * Return the process exit code
  */
 export const winAction = async function (winTitle: string, find: Find, action: WinActions): Promise<number> {
-    let findStr = ''
+    let findStr = ""
     switch (find) {
         case "Contains":
-            findStr = 'ititle'
+            findStr = "ititle"
             break;
 
         case "EndsWith":
-            findStr = 'etitle'
+            findStr = "etitle"
             break;
         case "StartsWith":
-            findStr = 'stitle'
+            findStr = "stitle"
             break;
         default:
-            findStr = 'title'
+            findStr = "title"
             break;
     }
-    let args = [
+    const args = [
         "win",
         action.toLocaleLowerCase(),
         findStr,
         winTitle
     ]
-    let exitCode = await runNirCmd(args);
+    const exitCode = await runNirCmd(args);
     return exitCode
 }
 
 async function runNirCmd(args: Array<string>): Promise<number> {
-    let OS = utils.getOS();
+    const OS = utils.getOS();
 
     if (OS !== utils.OS.windows) {
         console.error("\r\n  --> Sorry, Currently SwissKnife supports Windows OS Only :(\r\n")
         return -1;
     }
-    let nirCmd = await utils.getNir();
+    const nirCmd = await utils.getNir();
     args.unshift(nirCmd);
     const p = Deno.run({
         cmd: args,
@@ -229,10 +229,10 @@ async function runNirCmd(args: Array<string>): Promise<number> {
     return code;
 }
 
-async function toggleMute(mute: number): Promise<number> {
-    let args = [
+async function toggleMute(v: number): Promise<number> {
+    const args = [
         "mutesysvolume",
-        mute.toString()
+        v.toString()
     ]
     return (await runNirCmd(args))
 }
