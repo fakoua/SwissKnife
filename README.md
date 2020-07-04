@@ -1,5 +1,8 @@
 # SwissKnife
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2FSwissKnife.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2FSwissKnife?ref=badge_shield)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fakoua/swissKnife?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/fakoua/swissKnife?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/fakoua/swissKnife?style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fakoua/swissKnife/Deno%20CI?style=for-the-badge)
 
 
 Deno Swiss Knife tools (Windows Only)
