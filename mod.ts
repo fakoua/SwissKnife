@@ -178,7 +178,7 @@ export const notification = async function (title: string, text: string, icon: n
 }
 
 /**
- * 
+ * Window Actions
  * @param winTitle Window title to control (example: notepad, calc ...)
  * @param find Find mode for window title (Equals, Contains, StartsWith, EndsWith)
  * @param action Close, Hide, Flash, Max, Min ...
