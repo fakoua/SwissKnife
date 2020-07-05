@@ -211,6 +211,15 @@ export const winAction = async function (winTitle: string, find: Find, action: W
     return exitCode
 }
 
+/**
+ * Play mp3 file from local computer.
+ * @param mp3Path mp3 local path.
+ */
+export const playMp3 = async function (mp3Path: string): Promise<boolean> {
+    const exitCode = await runCmdmp3(mp3Path)
+    return exitCode === 0
+}
+
 async function runNirCmd(args: Array<string>): Promise<number> {
     const OS = utils.getOS();
 
@@ -220,6 +229,24 @@ async function runNirCmd(args: Array<string>): Promise<number> {
     }
     const nirCmd = await utils.getNir();
     args.unshift(nirCmd);
+    const p = Deno.run({
+        cmd: args,
+        stdout: "piped",
+        stderr: "piped"
+    });
+    const { code } = await p.status()
+    return code;
+}
+
+async function runCmdmp3(mp3: string): Promise<number> {
+    const OS = utils.getOS();
+
+    if (OS !== utils.OS.windows) {
+        console.error("\r\n  --> Sorry, Currently SwissKnife supports Windows OS Only :(\r\n")
+        return -1;
+    }
+    const cmd = await utils.getCmdmp3()
+    let args = [cmd, mp3]
     const p = Deno.run({
         cmd: args,
         stdout: "piped",

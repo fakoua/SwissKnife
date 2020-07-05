@@ -68,6 +68,16 @@ Also you can play the Windows standard beep (notification sound)
 await swissKnife.winBeep()
 ```
 
+### Play local mp3
+
+`await swissKnife.playMp3(local_path)`
+
+Play local mp3 and WAIT untile the sound ends..
+
+```ts
+await swissKnife.playMp3("c:\\myFolder\\sound.mp3") //play 500 hz for 1 sec.
+```
+
 ## Desktop Library
 
 ### Take screenshot

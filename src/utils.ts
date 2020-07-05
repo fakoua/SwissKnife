@@ -1,7 +1,7 @@
 import { join } from "https://deno.land/std/path/mod.ts";
 import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts";
 import { exists } from "https://deno.land/std/fs/exists.ts";
-import { createBin } from "./tsToNirCmd.ts"
+import * as create from "./tsToCmd.ts"
 
 /**
  * split input string into multiple lines
@@ -50,7 +50,6 @@ export function getDenoDir(): string {
 }
 
 export async function getNir(): Promise<string> {
-
     const swissKnifeFolder = join(getDenoDir(), "bin/swissknife/")
     const nirPath = join(swissKnifeFolder, "nircmd.exe")
     const ex = await exists(nirPath)
@@ -59,10 +58,22 @@ export async function getNir(): Promise<string> {
     }
     // Ensure directory
     await ensureDir(swissKnifeFolder)
-    await createBin(nirPath)
+    await create.createNirBin(nirPath)
     return nirPath;
 }
 
+export async function getCmdmp3(): Promise<string> {
+    const swissKnifeFolder = join(getDenoDir(), "bin/swissknife/")
+    const path = join(swissKnifeFolder, "cmdmp3.exe")
+    const ex = await exists(path)
+    if (ex) {
+        return path;
+    }
+    // Ensure directory
+    await ensureDir(swissKnifeFolder)
+    await create.createCmdmp3Bin(path)
+    return path;
+}
 
 export function getOS(): OS {
      return OS[Deno.build.os];
