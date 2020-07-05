@@ -9,6 +9,8 @@ Deno Swiss Knife tools (Windows Only)
 
 SwissKnife is a Deno module that allows you to do some useful tasks on Windows OS using NirCmd v2.86
 
+[API Document](https://doc.deno.land/https/deno.land/x/swissKnife/mod.ts)
+
 ## Usage
 
 ### Sound Library
