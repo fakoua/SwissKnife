@@ -246,7 +246,7 @@ async function runCmdmp3(mp3: string): Promise<number> {
         return -1;
     }
     const cmd = await utils.getCmdmp3()
-    let args = [cmd, mp3]
+    const args = [cmd, mp3]
     const p = Deno.run({
         cmd: args,
         stdout: "piped",
