@@ -1,8 +1,8 @@
 import * as utils from "./src/utils.ts"
-import { Screen, Monitor } from "./src/models/screen.ts"
-import { SpeakOptions } from "./src/models/speakOptions.ts"
-import { Find } from "./src/models/findMode.ts"
-import { WinActions } from "./src/models/winActions.ts"
+import type { Screen, Monitor } from "./src/models/screen.ts"
+import type { SpeakOptions } from "./src/models/speakOptions.ts"
+import type { Find } from "./src/models/findMode.ts"
+import type { WinActions } from "./src/models/winActions.ts"
 
 /**
  * Speak a text using default configuration.
