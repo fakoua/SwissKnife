@@ -156,7 +156,7 @@ This method allows you to hide, show, minimize, maximize, flush ... windows form
 
 - winTitle: Window Title to send the command
 - find: Find method (Contains, StartsWith, EndsWith and Equals)
-- action: Close, Hide, Show, Active, Flax, Max, Min, Normal and Center.
+- action: Close, Hide, Show, Activate, Flash, Max, Min, Normal and Center.
 
 ```ts
 //flash any window with title containing 'untit'
