@@ -235,6 +235,9 @@ async function runNirCmd(args: Array<string>): Promise<number> {
         stderr: "piped"
     });
     const { code } = await p.status()
+    p.stdout.close();
+    p.stderr.close();
+    p.close();
     return code;
 }
 
@@ -253,6 +256,9 @@ async function runCmdmp3(mp3: string): Promise<number> {
         stderr: "piped"
     });
     const { code } = await p.status()
+    p.stdout.close();
+    p.stderr.close();
+    p.close();
     return code;
 }
 
