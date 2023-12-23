@@ -83,21 +83,21 @@ export async function unmute(): Promise<number> {
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * await swissKnife.screenshot("c:\\myfolder\\myfile.png")
  * ```
- * 
+ *
  * @example
  * ```ts
  * //take a screenshot of both screens
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Dual")
  * ```
- * 
+ *
  * @example
  * ```ts
  * //Also you can specify the current active window
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Window")
  * ```
- * 
+ *
  * @example
  * ```ts
  * //The third parameter allows you to specify the coordinates, width and height of the area
@@ -259,6 +259,7 @@ export async function notification(title: string, text: string, icon = 77, timeo
     return exitCode
 }
 
+
 /**
  * Window Actions
  * @example
@@ -267,10 +268,11 @@ export async function notification(title: string, text: string, icon = 77, timeo
  * //flash any window with title containing 'untit'
  * await swissKnife.winAction("Untit", "Contains", "Flash")
  * ```
- * @param winTitle Window title to control (example: notepad, calc ...)
- * @param find Find mode for window title (Equals, Contains, StartsWith, EndsWith)
- * @param action Close, Hide, Flash, Max, Min ...
- * @returns the process exit code
+ * @async
+ * @param {string} winTitle Window title to control (example: notepad, calc ...)
+ * @param {Find} find Find mode for window title (Equals, Contains, StartsWith, EndsWith)
+ * @param {WinActions} action Close, Hide, Flash, Max, Min ...
+ * @returns {Promise<number>}
  */
 export async function winAction(winTitle: string, find: Find, action: WinActions): Promise<number> {
     let findStr = ""
