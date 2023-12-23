@@ -1,0 +1,1 @@
+export type PowerMode = "StandBy" | "Logoff" | "PowerOff"
