@@ -91,14 +91,14 @@ export async function unmute(): Promise<number> {
  * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Dual")
  * ```
  * 
- * * @example
+ * @example
  * ```ts
  * //Also you can specify the current active window
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Window")
  * ```
  * 
- *  * * @example
+ * @example
  * ```ts
  * //The third parameter allows you to specify the coordinates, width and height of the area
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
