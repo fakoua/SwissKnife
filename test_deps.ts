@@ -1,6 +1,5 @@
 export {
     assert,
     assertEquals,
-    assertThrows,
-    assertThrowsAsync
-  } from "https://deno.land/std/testing/asserts.ts";
+    assertThrows
+  } from "https://deno.land/std@0.210.0/assert/mod.ts";

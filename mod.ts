@@ -165,7 +165,7 @@ export const winBeep = async function (): Promise<number> {
  * @param timeout Timeout in milliseconds to hide the notification
  * Return the process exit code
  */
-export const notification = async function (title: string, text: string, icon: number = 77, timeout: number = 5000): Promise<number> {
+export const notification = async function (title: string, text: string, icon = 77, timeout = 5000): Promise<number> {
     const args = [
         "trayballoon",
         title,
@@ -228,13 +228,13 @@ async function runNirCmd(args: Array<string>): Promise<number> {
         return -1;
     }
     const nirCmd = await utils.getNir();
-    args.unshift(nirCmd);
-    const p = Deno.run({
-        cmd: args,
-        stdout: "piped",
-        stderr: "piped"
+    const p = new Deno.Command(nirCmd, {
+        args: args,
+        stderr: "piped",
+        stdout: "piped"
     });
-    const { code } = await p.status()
+    const child = p.spawn();
+    const { code } = await child.status;
     return code;
 }
 
@@ -246,13 +246,14 @@ async function runCmdmp3(mp3: string): Promise<number> {
         return -1;
     }
     const cmd = await utils.getCmdmp3()
-    const args = [cmd, mp3]
-    const p = Deno.run({
-        cmd: args,
+    const args = [mp3]
+    const p = new Deno.Command(cmd, {
+        args: args,
         stdout: "piped",
         stderr: "piped"
     });
-    const { code } = await p.status()
+    const child = p.spawn();
+    const { code } = await child.status
     return code;
 }
 

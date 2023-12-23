@@ -1,6 +1,6 @@
-import { join } from "https://deno.land/std/path/mod.ts";
-import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts";
-import { exists } from "https://deno.land/std/fs/exists.ts";
+import { join } from "https://deno.land/std@0.210.0/path/mod.ts";
+import { ensureDir } from "https://deno.land/std@0.210.0/fs/ensure_dir.ts";
+import { exists } from "https://deno.land/std@0.210.0/fs/exists.ts";
 import * as create from "./tsToCmd.ts"
 
 /**
@@ -83,4 +83,9 @@ export enum OS {
     windows = "windows",
     linux = "linux",
     darwin = "darwin",
+    freebsd = "freebsd",
+    netbsd = "netbsd",
+    aix = "aix",
+    solaris = "solaris",
+    illumos = "illumos",
 }
