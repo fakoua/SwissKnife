@@ -10,7 +10,7 @@ import type { WinActions } from "./src/models/winActions.ts"
  * @param options - { rate: 0, volume: 50 } set the rate and volume
  * Return the process exit code
  */
-export const speak = async function (text: string, options: SpeakOptions = { rate: 0, volume: 50 }): Promise<number> {
+export async function speak (text: string, options: SpeakOptions = { rate: 0, volume: 50 }): Promise<number> {
     const args = [
         "speak",
         "text",
@@ -30,7 +30,7 @@ export const speak = async function (text: string, options: SpeakOptions = { rat
  * @param volume from 0 (mute) to 100 (highest)
  * Return the process exit code
  */
-export const setVolume = async function (volume: number): Promise<number> {
+export async function setVolume (volume: number): Promise<number> {
     const v = Math.floor(655.35 * volume)
     const args = [
         "setsysvolume",
@@ -43,7 +43,7 @@ export const setVolume = async function (volume: number): Promise<number> {
  * Mute the system sound
  * Return the process exit code
  */
-export const mute = async function (): Promise<number> {
+export async function mute(): Promise<number> {
     return await toggleMute(1)
 }
 
@@ -51,7 +51,7 @@ export const mute = async function (): Promise<number> {
  * Unmute the system sound
  * Return the process exit code
  */
-export const unmute = async function (): Promise<number> {
+export async function unmute(): Promise<number> {
     return await toggleMute(0)
 }
 
@@ -62,7 +62,7 @@ export const unmute = async function (): Promise<number> {
  * @param screen - {x, y, width, height} Screen option
  * Return the saved image path
  */
-export const screenshot = async function (imagePath: string, monitor: Monitor = "Single", screen?: Screen): Promise<string> {
+export async function screenshot(imagePath: string, monitor: Monitor = "Single", screen?: Screen): Promise<string> {
 
     let cmd = "savescreenshot"
     switch (monitor) {
@@ -101,7 +101,7 @@ export const screenshot = async function (imagePath: string, monitor: Monitor = 
  * @param text Question Box question text
  * Return true if the user clicks YES
  */
-export const questionBox = async function (title: string, text: string): Promise<boolean> {
+export async function questionBox(title: string, text: string): Promise<boolean> {
     const args = [
         "qboxcom",
         text,
@@ -119,7 +119,7 @@ export const questionBox = async function (title: string, text: string): Promise
  * @param text InfoBox message
  * Return the process exit code
  */
-export const infoBox = async function (title: string, text: string): Promise<number> {
+export async function infoBox(title: string, text: string): Promise<number> {
     const args = [
         "infobox",
         text,
@@ -135,7 +135,7 @@ export const infoBox = async function (title: string, text: string): Promise<num
  * @param duration Beep duration in milliseconds
  * Return the process exit code
  */
-export const beep = async function (frequency: number, duration: number): Promise<number> {
+export async function beep(frequency: number, duration: number): Promise<number> {
     const args = [
         "beep",
         frequency.toString(),
@@ -149,7 +149,7 @@ export const beep = async function (frequency: number, duration: number): Promis
  * Play Windows system notification sound
  * Return the process exit code
  */
-export const winBeep = async function (): Promise<number> {
+export async function winBeep(): Promise<number> {
     const args = [
         "stdbeep"
     ]
@@ -165,7 +165,7 @@ export const winBeep = async function (): Promise<number> {
  * @param timeout Timeout in milliseconds to hide the notification
  * Return the process exit code
  */
-export const notification = async function (title: string, text: string, icon = 77, timeout = 5000): Promise<number> {
+export async function notification(title: string, text: string, icon = 77, timeout = 5000): Promise<number> {
     const args = [
         "trayballoon",
         title,
@@ -184,7 +184,7 @@ export const notification = async function (title: string, text: string, icon = 
  * @param action Close, Hide, Flash, Max, Min ...
  * Return the process exit code
  */
-export const winAction = async function (winTitle: string, find: Find, action: WinActions): Promise<number> {
+export async function winAction(winTitle: string, find: Find, action: WinActions): Promise<number> {
     let findStr = ""
     switch (find) {
         case "Contains":
@@ -215,7 +215,7 @@ export const winAction = async function (winTitle: string, find: Find, action: W
  * Play mp3 file from local computer.
  * @param mp3Path mp3 local path.
  */
-export const playMp3 = async function (mp3Path: string): Promise<boolean> {
+export async function playMp3(mp3Path: string): Promise<boolean> {
     const exitCode = await runCmdmp3(mp3Path)
     return exitCode === 0
 }
