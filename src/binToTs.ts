@@ -1,12 +1,11 @@
 import * as utils from "./utils.ts"
-import { join } from "https://deno.land/std/path/mod.ts";
-import { parse } from "https://deno.land/std/flags/mod.ts";
-import { writeFileStr } from "https://deno.land/std/fs/mod.ts";
+import { join } from "https://deno.land/std@0.210.0/path/mod.ts";
+import { parseArgs } from "https://deno.land/std@0.210.0/cli/parse_args.ts";
 const { args } = Deno;
 
 // cli: deno -A src\binToTs.ts -- --bin=nircmd
 
-const argv = parse(args);
+const argv = parseArgs(args);
 const binFile = argv.bin
 
 const binFolderPath = join(Deno.cwd(), `bin`)
@@ -25,6 +24,6 @@ const base64 = utils.trunString(binBase64, 100)
 
 const tsFileContent = `export const bin=\`${base64}\``
 const tsFilePath = join(binFolderPath, `${binFile}.ts`)
-await writeFileStr(tsFilePath, tsFileContent);
+await Deno.writeTextFile(tsFilePath, tsFileContent);
 
 console.log(`TS File saved to: ${tsFilePath}`)

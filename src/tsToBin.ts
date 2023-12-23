@@ -1,11 +1,11 @@
 import { bin } from "../bin/nircmd.ts"
-import { join } from "https://deno.land/std/path/mod.ts";
-import { parse } from "https://deno.land/std/flags/mod.ts";
+import { join } from "https://deno.land/std@0.210.0/path/mod.ts";
+import { parseArgs } from "https://deno.land/std@0.210.0/cli/parse_args.ts";
 
 // cli: deno -A src\tsToBin.ts -- --bin=nircmd
 
 const { args } = Deno;
-const argv = parse(args);
+const argv = parseArgs(args);
 const binFile = argv.bin
 
 const binFolderPath = join(Deno.cwd(), `bin`)

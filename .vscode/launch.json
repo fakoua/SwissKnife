@@ -1,5 +1,4 @@
 {
-    "version": "0.2.0",
     "configurations": [
       {
         "name": "Deno",
@@ -7,8 +6,8 @@
         "request": "launch",
         "cwd": "${workspaceFolder}",
         "runtimeExecutable": "deno",
-        "runtimeArgs": ["run", "--inspect-brk", "-A", "local_test.ts"],
-        "port": 9229
+        "runtimeArgs": ["run", "--inspect-brk=127.0.0.1:9228", "-A", "testbed.ts"],
+        "attachSimplePort": 9228
       }
     ]
   }
