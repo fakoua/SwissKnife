@@ -3,6 +3,7 @@ import type { Screen, Monitor } from "./src/models/screen.ts"
 import type { SpeakOptions } from "./src/models/speakOptions.ts"
 import type { Find } from "./src/models/findMode.ts"
 import type { WinActions } from "./src/models/winActions.ts"
+import { PowerMode } from "./src/models/powerMode.ts";
 
 
 /**
@@ -325,6 +326,64 @@ export async function winAction(winTitle: string, find: Find, action: WinActions
 export async function playMp3(mp3Path: string): Promise<boolean> {
     const exitCode = await runCmdmp3(mp3Path)
     return exitCode === 0
+}
+
+
+/**
+ * Turn off the monitor
+ * @date 12/23/2023 - 4:28:24 PM
+ *
+ * @example
+ * ```ts
+ * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
+ * await swissKnife.monitorOff() //turn off the monitor
+ * ```
+ * @export
+ * @async
+ * @returns {Promise<number>} process exit code.
+ */
+export async function monitorOff(): Promise<number> {
+    const args = [
+        "monitor",
+        "off",
+    ]
+    const exitCode = await runNirCmd(args);
+    return exitCode
+}
+
+
+/**
+ * Windows Power
+ * @date 12/23/2023 - 4:35:59 PM
+ *
+ * @example
+ * ```ts
+ * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
+ * await swissKnife.power("StandBy") //Windows standby
+ * //Supported: StandBy, Logoff and Poweroff
+ * ```
+ * @export
+ * @async
+ * @param {PowerMode} mode standby, logoff, poweroff
+ * @returns {Promise<number>} process exit code
+ */
+export async function power(mode:PowerMode): Promise<number> {
+    const args = [];
+    switch (mode) {
+        case "Logoff":
+            args.push("exitwin")
+            args.push("logoff")
+            break;
+        case "StandBy":
+            args.push("standby")
+            break;
+        case "PowerOff":
+            args.push("exitwin")
+            args.push("poweroff")
+            break;
+    }
+    const exitCode = await runNirCmd(args);
+    return exitCode
 }
 
 async function runNirCmd(args: Array<string>): Promise<number> {

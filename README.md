@@ -21,7 +21,7 @@ Speaks the text your specify by using the Speech library (SAPI) that comes with 
 
 ```ts
 import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
-let res = await swissKnife.speak("Hello from the other world")
+await swissKnife.speak("Hello from the other world")
 ```
 
 Run your script file:
@@ -34,7 +34,7 @@ You can also set the rate and the volume:
 
 ```ts
 import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
-let res = await swissKnife.speak("Hello from the other world", {rate: 3, volume: 80})
+await swissKnife.speak("Hello from the other world", {rate: 3, volume: 80})
 //rate: -10 -> 10
 //volume: 0% -> 100%
 ```
@@ -88,28 +88,28 @@ With swissKnife you can take a screenshot of the full screen, dual screen and ac
 
 ```ts
 //Save the primary screen image.
-let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png")
+await swissKnife.screenshot("c:\\myfolder\\myfile.png")
 ```
 
 Also you can specify Dual monitor:
 
 ```ts
 //take a screenshot of both screens
-let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Dual")
+await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Dual")
 ```
 
 Also you can specify the current active window:
 
 ```ts
 //take a screenshot of both screens
-let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Window")
+await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Window")
 ```
 
 The third parameter allows you to specify the coordinates, width and height of the area:
 
 ```ts
 //take a screenshot of both screens
-let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Single", {
+await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Single", {
     x: 10,
     y: 30,
     width: 200,
@@ -161,6 +161,19 @@ This method allows you to hide, show, minimize, maximize, flush ... windows form
 ```ts
 //flash any window with title containing 'untit'
 await swissKnife.winAction("Untit", "Contains", "Flash")
+```
+
+## Window Power
+This method allows you to Logoff, Power Off and Stand by the system.
+
+`power(mode:PowerMode)`
+
+- mode: Supported values Logoff, Power off and Standby
+
+```ts
+import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
+//Standby the system
+await swissKnife.power("StandBy")
 ```
 
 ## License
