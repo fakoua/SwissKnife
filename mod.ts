@@ -4,16 +4,20 @@ import type { SpeakOptions } from "./src/models/speakOptions.ts"
 import type { Find } from "./src/models/findMode.ts"
 import type { WinActions } from "./src/models/winActions.ts"
 
+
 /**
  * Speak a text using default configuration.
- * @example
+ * @date 12/23/2023 - 3:39:39 PM
+  * @example
  * ```ts
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * let res = await swissKnife.speak("Hello from the other world")
  * ```
- * @param text input string to speak
- * @param options - { rate: 0, volume: 50 } set the rate and volume
- * @returns the process exit code
+ * @export
+ * @async
+ * @param {string} text input string to speak
+ * @param {SpeakOptions} [options={ rate: 0, volume: 50 }] set the rate and volume
+ * @returns {Promise<number>} the process exit code
  */
 export async function speak (text: string, options: SpeakOptions = { rate: 0, volume: 50 }): Promise<number> {
     const args = [
@@ -76,8 +80,11 @@ export async function unmute(): Promise<number> {
     return await toggleMute(0)
 }
 
+
 /**
  * Capture screenshot
+ * @date 12/23/2023 - 3:35:02 PM
+ * 
  * @example
  * ```ts
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
@@ -86,33 +93,32 @@ export async function unmute(): Promise<number> {
  *
  * @example
  * ```ts
- * //take a screenshot of both screens
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
- * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Dual")
+ * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Dual") //take a screenshot of both screens
  * ```
  *
  * @example
  * ```ts
- * //Also you can specify the current active window
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
- * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Window")
+ * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Window") //Also you can specify the current active window
  * ```
  *
  * @example
  * ```ts
- * //The third parameter allows you to specify the coordinates, width and height of the area
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * let res = await swissKnife.screenshot("c:\\myfolder\\myfile.png", "Single", {
  *   x: 10,
  *   y: 30,
  *   width: 200,
  *   height: 150
- * })
+ * }) //The third parameter allows you to specify the coordinates, width and height of the area
  * ```
- * @param imagePath - String: local path to save the PNG image
- * @param monitor - String: Monitor options, "Single", "Dual", or "Window"
- * @param screen - {x, y, width, height} Screen option
- * @returns the saved image path
+ * @export
+ * @async
+ * @param {string} imagePath local path to save the PNG image
+ * @param {Monitor} [monitor="Single"] Monitor options, "Single", "Dual", or "Window"
+ * @param {?Screen} [screen] {x, y, width, height} Screen option
+ * @returns {Promise<string>} the saved image path
  */
 export async function screenshot(imagePath: string, monitor: Monitor = "Single", screen?: Screen): Promise<string> {
 
@@ -234,18 +240,23 @@ export async function winBeep(): Promise<number> {
     return exitCode
 }
 
+
 /**
  * Show window notification (Ballon)
+ * @date 12/23/2023 - 3:41:08 PM
+ *
  * @example
  * ```ts
  * import * as swissKnife from "https://deno.land/x/swissKnife/mod.ts"
  * await swissKnife.notification("My Title", "Hello Notification", 77, 2000)
  * ```
- * @param title Notification Title
- * @param text Notification Text
- * @param icon Icon number (from shell32.dll)
- * @param timeout Timeout in milliseconds to hide the notification
- * @returns the process exit code
+ * @export
+ * @async
+ * @param {string} title Notification Title
+ * @param {string} text Notification Text
+ * @param {number} [icon=77] Icon number (from shell32.dll)
+ * @param {number} [timeout=5000] Timeout in milliseconds to hide the notification
+ * @returns {Promise<number>} the process exit code
  */
 export async function notification(title: string, text: string, icon = 77, timeout = 5000): Promise<number> {
     const args = [
